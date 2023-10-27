@@ -1,0 +1,20 @@
+{
+    "name": "Random Colour",
+    "short_name": "Random Colour",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#61003f",
+    "theme_color": "#61003f",
+    "icons": [
+      {
+        "src": "/icon-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/icon-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ]
+  }
