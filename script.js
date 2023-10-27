@@ -27,6 +27,11 @@ const createElement = (color) => {
     createdEl.style.backgroundColor = color;
     colorHistoryUL.appendChild(createdEl);
   });
+  document.querySelectorAll("li").forEach((li) => {
+    li.addEventListener("click", (e) => {
+      setAsCurrent(e.target.textContent);
+    });
+  });
 };
 createElement(colorHistory);
 
