@@ -1,85 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/icon-192x192.png" />
-    <meta name="theme-color" content="#61003f" />
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@40,400,0,200"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-    <link rel="manifest" href="/manifest.json" />
-    <title>Random Colours</title>
-  </head>
-  <body>
-    <header class="mainHeader">
-      <div class="logo">RandomColour</div>
-      <div class="colCode" id="colCode">#212121</div>
-    </header>
-    <div class="colorHistory" id="colorHistory">
-      <ul id="colorHistoryUL"></ul>
-    </div>
-    <div class="colorViewer" id="colorViewer"></div>
-    <div class="buttonContainer">
-      <button id="refresh" class="sideButton">
-        <span class="material-symbols-rounded"> autorenew </span>
-      </button>
-      <button id="copy" class="sideButton" data-clipboard-target="#colCode">
-        <span class="material-symbols-rounded">content_copy</span>
-      </button>
-      <button id="clearHistory" class="sideButton">
-        <span class="material-symbols-rounded"> delete_history </span>
-      </button>
-    </div>
-    <div class="bottomDiv">
-      <div class="buttonConbottom">
-        <button
-          class="bottomBarButton"
-          data-clipboard-target="#hslBtn"
-          id="hsl"
-        >
-          <p id="hslBtn">RGB (231, 345,221)</p>
-        </button>
-        <button
-          class="bottomBarButton"
-          data-clipboard-target="#rgbBtn"
-          id="rgb"
-        >
-          <p id="rgbBtn">RGB (231, 345,221)</p>
-        </button>
-      </div>
-      <div class="colorGrid" id="colorGrid">
-        <div class="colorBlock"></div>
-        <div class="colorBlock"></div>
-        <div class="colorBlock"></div>
-        <div class="colorBlock"></div>
-        <div class="colorBlock"></div>
-        <div class="colorBlock"></div>
-        <div class="colorBlock"></div>
-        <div class="colorBlock"></div>
-      </div>
-    </div>
-  </body>
-  <script src="script.js"></script>
-
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker
-          .register("/service-worker.js")
-          .then(function (registration) {
-            console.log(
-              "Service Worker registered with scope:",
-              registration.scope
-            );
-          })
-          .catch(function (error) {
-            console.log("Service Worker registration failed:", error);
-          });
-      });
-    }
-  </script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/png" href="favicon.ico" />
+        <meta name="theme-color" content="#61003f" />
+        <link rel="stylesheet" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@40,400,0,200"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+        <title>Random Colours</title>
+    </head>
+    <body>
+        <header class="mainHeader">
+            <div class="logo">RandomColour</div>
+            <div class="colCode" id="colCode">#212121</div>
+        </header>
+        <div class="colorHistory" id="colorHistory">
+            <ul id="colorHistoryUL"></ul>
+        </div>
+        <div class="colorViewer" id="colorViewer"></div>
+        <div class="buttonContainer">
+            <button id="refresh" class="sideButton">
+                <span class="material-symbols-rounded"> autorenew </span>
+            </button>
+            <button
+                id="copy"
+                class="sideButton"
+                data-clipboard-target="#colCode"
+            >
+                <span class="material-symbols-rounded">content_copy</span>
+            </button>
+            <button id="clearHistory" class="sideButton">
+                <span class="material-symbols-rounded"> delete_history </span>
+            </button>
+        </div>
+        <div class="bottomDiv">
+            <div class="buttonConbottom">
+                <button
+                    class="bottomBarButton"
+                    data-clipboard-target="#hslBtn"
+                    id="hsl"
+                >
+                    <p id="hslBtn">RGB (231, 345,221)</p>
+                </button>
+                <button
+                    class="bottomBarButton"
+                    data-clipboard-target="#rgbBtn"
+                    id="rgb"
+                >
+                    <p id="rgbBtn">RGB (231, 345,221)</p>
+                </button>
+            </div>
+            <div class="colorGrid" id="colorGrid">
+                <div class="colorBlock"></div>
+                <div class="colorBlock"></div>
+                <div class="colorBlock"></div>
+                <div class="colorBlock"></div>
+                <div class="colorBlock"></div>
+                <div class="colorBlock"></div>
+                <div class="colorBlock"></div>
+                <div class="colorBlock"></div>
+            </div>
+        </div>
+    </body>
+    <script src="script2.js"></script>
 </html>

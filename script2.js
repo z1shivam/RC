@@ -1,37 +1,24 @@
-let clipboard = new ClipboardJS("#copy");
-let clipboard2 = new ClipboardJS("#hsl");
-let clipboard3 = new ClipboardJS("#rgb");
+const clipboard = new ClipboardJS("#copy");
+const clipboard2 = new ClipboardJS("#hsl");
+const clipboard3 = new ClipboardJS("#rgb");
 
-let colorViewer = document.getElementById("colorViewer");
-let colCode = document.getElementById("colCode");
-let generatedColour = "#212121";
-let colorHistoryUL = document.getElementById("colorHistoryUL");
-let hslBtn = document.getElementById("hslBtn");
-let rgbBtn = document.getElementById("rgbBtn");
+const colorViewer = document.getElementById("colorViewer");
+const colCode = document.getElementById("colCode");
+const colorHistoryUL = document.getElementById("colorHistoryUL");
+const hslBtn = document.getElementById("hslBtn");
+const rgbBtn = document.getElementById("rgbBtn");
 
-let colorHistory = [];
-if (localStorage.getItem("colorHistory") !== null) {
-    colorHistory = JSON.parse(localStorage.getItem("colorHistory"));
-} else {
-    colorHistory = ["#212121"];
-}
+let colorHistory = JSON.parse(localStorage.getItem("colorHistory")) || ["#212121"];
 
 function hexToRGBHSL(hex) {
     hex = hex.replace(/^#/, "");
-
-    let r = parseInt(hex.slice(0, 2), 16);
-    let g = parseInt(hex.slice(2, 4), 16);
-    let b = parseInt(hex.slice(4, 6), 16);
-
-    r /= 255;
-    g /= 255;
-    b /= 255;
+    const r = parseInt(hex.slice(0, 2), 16) / 255;
+    const g = parseInt(hex.slice(2, 4), 16) / 255;
+    const b = parseInt(hex.slice(4, 6), 16) / 255;
 
     const max = Math.max(r, g, b);
     const min = Math.min(r, g, b);
-    let h,
-        s,
-        l = (max + min) / 2;
+    let h, s, l = (max + min) / 2;
 
     if (max === min) {
         h = s = 0; // Achromatic
@@ -71,7 +58,7 @@ function hslToRgb(h, s, l) {
     let r, g, b;
 
     if (s === 0) {
-        r = g = b = l; // Achromatic
+        r = g = b = l;
     } else {
         const hueToRgb = (p, q, t) => {
             if (t < 0) t += 1;
@@ -99,9 +86,9 @@ function hslToRgb(h, s, l) {
 
 function generateColorRange(hue, saturation) {
     const hexCodes = [];
-    const lightnessStep = 12;
+    const lightnessStep = 10;
 
-    for (let i = 12; i <= 96; i += lightnessStep) {
+    for (let i = 10; i <= 80; i += lightnessStep) {
         const lightness = i;
         const color = hslToRgb(hue / 360, saturation / 100, lightness / 100);
         hexCodes.unshift(color);
@@ -123,10 +110,6 @@ const createElement = (color) => {
     colorViewer.style.backgroundColor = color[0];
     colCode.textContent = color[0];
     colorHistoryUL.innerHTML = "";
-    const { rgb, hsl, colors } = hexToRGBHSL(color[0]);
-    rgbBtn.innerText = rgb;
-    hslBtn.innerText = hsl;
-
     colorHistory.forEach((color) => {
         let createdEl = document.createElement("li");
         createdEl.textContent = color;
@@ -141,7 +124,7 @@ const createElement = (color) => {
 };
 createElement(colorHistory);
 
-let refresh = (e) => {
+const refresh = () => {
     const hexString = "0123456789ABCDEF";
     generatedColour = "#";
     for (let i = 1; i <= 6; i++) {
@@ -155,7 +138,6 @@ let refresh = (e) => {
     rgbBtn.innerText = rgb;
     hslBtn.innerText = hsl;
     colorChanger(colorRange);
-
     createElement(colorHistory);
     localStorage.setItem("colorHistory", JSON.stringify(colorHistory));
     document.querySelectorAll("li").forEach((li) => {
@@ -163,39 +145,22 @@ let refresh = (e) => {
             setAsCurrent(e.target.textContent);
         });
     });
-}
+};
 
-document
-    .getElementById("refresh")
-    .addEventListener("click", () => {
-        const hexString = "0123456789ABCDEF";
-        generatedColour = "#";
-        for (let i = 1; i <= 6; i++) {
-            generatedColour += hexString.charAt(Math.floor(Math.random() * 16));
-        }
-        colorHistory.unshift(generatedColour);
-        if (colorHistory.length > 10) {
-            colorHistory.pop();
-        }
-        const { rgb, hsl, colorRange } = hexToRGBHSL(generatedColour);
-        rgbBtn.innerText = rgb;
-        hslBtn.innerText = hsl;
-        colorChanger(colorRange);
+document.getElementById("refresh").addEventListener("click", refresh);
+document.addEventListener("keydown", (e) => {
+    if (e.code === "Space") {
+        refresh();
+    }
+});
 
-        createElement(colorHistory);
-        localStorage.setItem("colorHistory", JSON.stringify(colorHistory));
-        document.querySelectorAll("li").forEach((li) => {
-            li.addEventListener("click", (e) => {
-                setAsCurrent(e.target.textContent);
-            });
-        });
-    });
-
-document.getElementById("clearHistory").addEventListener("click", (e) => {
-    colorHistory = ["#212121"];
-    createElement(colorHistory);
-    colorChanger(hexToRGBHSL(colorHistory[0]).colorRange);
-    localStorage.setItem("colorHistory", JSON.stringify(colorHistory));
+document.getElementById("clearHistory").addEventListener("click", () => {
+    // colorHistory = ["#212121"];
+    // createElement(colorHistory);
+    // colorChanger(hexToRGBHSL(colorHistory[0]).colorRange);
+    // localStorage.setItem("colorHistory", JSON.stringify(colorHistory));
+    localStorage.clear();
+    location.reload();
 });
 
 const colorChanger = (colorRange) => {
@@ -221,4 +186,3 @@ colorBlocks.forEach((colorBlock) => {
         hslBtn.innerText = hsl;
     });
 });
-
