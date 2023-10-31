@@ -49,6 +49,7 @@
     margin: 3px;
     border-radius: 5px;
     border: 2px solid rgb(252, 188, 220);
+    cursor: pointer;
 }
 
 .sideButton:hover{
@@ -103,6 +104,10 @@ ul li{
     cursor: pointer;
 }
 
+ul li:hover{
+    transform: scale(0.96);
+}
+
 .colCode{
     font-size: 20px;
     font-family: 'sometype mono', monospace;
@@ -139,6 +144,7 @@ ul li{
     border-radius: 5px;
     width: 100%;
     font-family: 'sometype mono', monospace;
+    cursor: pointer;
 }
 .bottomBarButton:hover{
     background-color: #860057;
@@ -164,4 +170,8 @@ ul li{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.colorBlock:hover{
+    transform: scale(0.98);
 }
